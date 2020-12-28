@@ -1,0 +1,66 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+/**
+ * 
+ * @author jaejeongk
+ * version : LENA 1.3.x
+ * LENA Manger가 10분 간격으로 저장하는 성능데이터 LOG를 
+ * command windows에서 보여주는 source이다.
+ *
+ */
+public class LenaPerformanceLogView {
+	public static void main(String[] args) throws Exception {
+		
+		String LenaPLD = "";
+		String SelE = "";
+		String selm = "";
+		String sfile= "";
+		
+		BufferedReader br=null;
+		ListLenaPLog llp = new ListLenaPLog();
+		UiLPL ulpl = new UiLPL();
+		
+		/**
+		 * local test (1/2)
+		 * LenaPLD="D:/lena-temp/LPL";
+		 */
+		
+		LenaPLD= args[0];
+		
+		if (args.length > 1){
+			SelE  = args[1];
+			selm  = args[2];
+			sfile = args[3];
+		} else {
+			selm = ulpl.SelDay();
+			SelE = ulpl.SelEngine();
+		}
+		
+		//select month
+		if ( "today" == selm ) {
+			br = llp.storeBr( LenaPLD + "/lena-avg-performance_" + UiLPL.getTimeStamp("yyyy-MM") + ".log" );
+		}
+		
+		if ( "month" == selm ) {
+			// select log
+			br = llp.storeBr(ListLenaPLog.readDF(LenaPLD));
+		}
+		
+		// select engine
+		try {
+			if (SelE == "ALL"){
+				PasingJsonAll pja = new PasingJsonAll();
+				pja.actionPerformed(br, selm);
+			}else {
+				ParsingJSON pj = new ParsingJSON();
+				pj.actionPerformed(br, SelE, selm);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+             
+	}
+}

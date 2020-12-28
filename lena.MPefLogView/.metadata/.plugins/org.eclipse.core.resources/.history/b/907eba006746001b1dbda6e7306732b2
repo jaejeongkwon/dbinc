@@ -1,0 +1,71 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+/**
+ * 
+ * @author jaejeongk
+ * version : LENA 1.3.x
+ * LENA Manger가 10분 간격으로 저장하는 성능데이터 LOG를 
+ * command windows에서 보여주는 source이다.
+ *
+ */
+public class LenaPerformanceLogView {
+	public static void main(String[] args) throws Exception {
+		
+		String LenaPLD = "";
+		String selE = "";
+		String selm = "";
+		String sfile= "-1";
+		
+		BufferedReader br=null;
+		ListLenaPLog llp = new ListLenaPLog();
+		UiLPL ulpl = new UiLPL();
+		
+		/**
+		 * local test (1/2)
+		 * LenaPLD="D:/lena-temp/LPL";
+		 */
+		
+		LenaPLD = args[0];
+		
+		if (args.length > 2){
+			selE  = args[1].toString().trim();
+			selm  = args[2].toString().trim();
+			sfile = args[3].toString().trim();
+		} else {
+			selm = ulpl.SelDay();
+			selE = ulpl.SelEngine();
+		}
+		
+		/**
+		 *  select month
+		 */
+		if ( selm.equals("today")){
+			System.out.println(" ### action today");
+			br = llp.storeBr( LenaPLD + "/lena-avg-performance_" + UiLPL.getTimeStamp("yyyy-MM") + ".log" );
+		}
+		
+		if ( selm.equals("month")){
+			br = llp.storeBr(ListLenaPLog.readDF(LenaPLD,sfile));
+		}
+		
+		
+		// select engine
+		try {
+			
+			if (selE.equals("ALL")){
+				PasingJsonAll pja = new PasingJsonAll();
+				pja.actionPerformed(br, selm);
+			}else {
+				System.out.println(" ### action WAS");
+				ParsingJSON pj = new ParsingJSON();
+				pj.actionPerformed(br, selE, selm);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+             
+	}
+}

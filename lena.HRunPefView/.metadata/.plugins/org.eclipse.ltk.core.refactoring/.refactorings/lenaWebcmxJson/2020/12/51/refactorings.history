@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.dbinc.aim.lenaWebcmxJson.ListLenaPLog&apos; to &apos;ReadLenaHwork&apos;&#x0D;&#x0A;- Original project: &apos;lenaWebcmxJson&apos;&#x0D;&#x0A;- Original element: &apos;com.dbinc.aim.lenaWebcmxJson.ListLenaPLog&apos;&#x0D;&#x0A;- Renamed element: &apos;com.dbinc.aim.lenaWebcmxJson.ReadLenaHwork&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ListLenaPLog&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.dbinc.aim.lenaWebcmxJson{ListLenaPLog.java[ListLenaPLog" matchStrategy="1" name="ReadLenaHwork" qualified="false" references="true" similarDeclarations="false" stamp="1608193182930" textual="false" version="1.0"/>
+</session>

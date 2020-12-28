@@ -1,0 +1,23 @@
+package com.dbinc.aim.lenaPLjson;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+public class ReadJob {
+	JSONArray  jArr;
+	public void actionPerformed(String itemjson, JSONObject jOb){
+		jArr = (JSONArray) jOb.get(itemjson);
+		String gtime = jOb.get("TIMESTAMP").toString();
+		
+		for (Object ob : jArr){
+			JSONObject wi = (JSONObject)ob;
+			System.out.println( gtime + "\t " + ItemLenaPL.makeItem(wi, itemjson));
+			
+			if (itemjson == "WAS"){
+				JSONArray darr = (JSONArray) wi.get("datasources");
+				ItemLenaPL.getDS(darr);
+			}
+		}
+	}
+
+}

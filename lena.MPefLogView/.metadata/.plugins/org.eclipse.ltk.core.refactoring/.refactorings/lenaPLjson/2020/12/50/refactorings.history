@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.dbinc.aim.lenaPLjson.viewLPL&apos; to &apos;LenaPerformanceLogView&apos;&#x0D;&#x0A;- Original project: &apos;lenaPLjson&apos;&#x0D;&#x0A;- Original element: &apos;com.dbinc.aim.lenaPLjson.viewLPL&apos;&#x0D;&#x0A;- Renamed element: &apos;com.dbinc.aim.lenaPLjson.LenaPerformanceLogView&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;viewLPL&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.dbinc.aim.lenaPLjson{viewLPL.java[viewLPL" matchStrategy="1" name="LenaPerformanceLogView" qualified="false" references="true" similarDeclarations="false" stamp="1607485038261" textual="false" version="1.0"/>
+</session>

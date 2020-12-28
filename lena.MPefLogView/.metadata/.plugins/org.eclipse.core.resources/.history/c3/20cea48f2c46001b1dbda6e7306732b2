@@ -1,0 +1,95 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+public class ListLenaPLog {
+	public BufferedReader storeBr(String pl) throws Exception{
+		BufferedReader br=null;
+		br = new BufferedReader(new FileReader(pl));
+		return br;
+	}
+	
+	public static void showFilesInDIr(String dirPath) {
+	    File dir = new File(dirPath);
+	    File files[] = dir.listFiles();
+
+	    for (int i = 0; i < files.length; i++) {
+	        File file = files[i];
+	        if (file.isDirectory()) {
+	            showFilesInDIr(file.getPath());
+	        } else {
+	            System.out.println("file: " + file);
+	        }
+	    }
+	}
+	
+	public static String readDF(String lenaPD) throws Exception{
+		String rlpd = null;
+		
+		/**
+		 * local test (2/2) 
+		 * File dir = new File("D:/lena-temp/LPL");
+		 */
+		File dir = new File(lenaPD);
+		
+	    File files[] = dir.listFiles();
+
+	    for (int i = 0; i < files.length; i++) {
+	    	File file = files[i];
+	    	
+	        if (file.isDirectory()) {
+	            showFilesInDIr(file.getPath());
+	        } else if (file.getName().endsWith(".log")){
+	            System.out.println(i +": " + file);
+	        }
+	    }
+	    
+	    UiLPL ulpl = new UiLPL();
+	    rlpd = files[ulpl.SelLog()].toString();
+	    
+	    return rlpd;
+	}
+	
+	public static String readVersion(String lenaRI) {
+		BufferedReader br=null;
+		String wpf=null;
+		StringBuilder sb = new StringBuilder();
+		
+		//br = new BufferedReader(new FileReader("~/etc/info/release-info.xml"));
+		try {
+			br = new BufferedReader(new FileReader(lenaRI));
+			
+			while ((wpf = br.readLine()) != null){
+				sb.append(wpf);
+			}
+			
+			br.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sb.toString();
+		
+	}
+	
+	public String changeWR(String wor, String wkey) {
+		String sip=null;
+		String ptemp=null;
+		try {
+			if ( wor.contains(wkey)){
+				//was host ip
+				int iip = wor.indexOf("<version>");
+				//worker.54a4cd51cd9f06381.host=192.168.41.132
+				ptemp = wor.substring( iip + 1  , wor.substring(iip).indexOf("/")+iip);
+				sip = ptemp.substring( ptemp.indexOf("=")+1 , ptemp.length());
+				}
+			} catch (Exception e){
+				
+			}
+		return sip;
+	}
+}

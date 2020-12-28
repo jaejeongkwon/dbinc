@@ -1,0 +1,105 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class ParsingJsonAll {
+	public void actionPerformed(BufferedReader br, String itemjson, String term ) throws Exception{	
+		JSONParser parser = new JSONParser();
+		try {  	
+            JSONObject jOb ;
+            JSONArray  jArr;
+            String line;
+            
+            JSONObject aob ;
+            JSONArray  wds;
+            
+            
+            System.out.println("============================================================================================================================================");
+			System.out.println("       TIME \t\t" + ItemLenaPL.makeTitle(itemjson) );
+			System.out.println("============================================================================================================================================");
+			
+    		while ((line = br.readLine()) != null) {
+    			jOb = (JSONObject) parser.parse(line);
+    			//jArr = (JSONArray) jOb.get(itemjson);
+    			
+    			JSONObject jds = (JSONObject) jOb.get("WAS");
+    			wds  = (JSONObject) jds.get("datasources");
+    			
+    			JSONObject wi=null;
+	    		for (int i = 0; i < jArr.size(); i++){
+	    			wi = (JSONObject) jArr.get(i);
+	    			
+	    		}
+    			
+    			if ( "month" == term ) {
+    				String gtime = jOb.get("TIMESTAMP").toString();
+    				
+	    			//System.out.println( gtime + "\t " + ItemLenaPL.makeItem(webObj, itemjson)	);
+    			/**	
+		    		for (Object ob : jArr){
+		    			JSONObject wi = (JSONObject)ob;
+		    			System.out.println( gtime + "\t " + ItemLenaPL.makeItem(wi, itemjson));
+		    		}
+	    			*/
+	    			
+    			} else {
+    				String gtime = jOb.get("TIMESTAMP").toString();
+
+    				//if (gtime.contains("2020-11-23") ){
+    				if (gtime.contains(UiLPL.get2day()) ){
+    					//System.out.println( gtime + "\t " + ItemLenaPL.makeItem(webObj, itemjson)	);
+    					/**
+    		    		for (Object ob : jArr){
+    		    			JSONObject wi = (JSONObject)ob;
+    		    			System.out.println( gtime + "\t " + ItemLenaPL.makeItem(wi, itemjson));
+    		    		}
+    		    		*/
+    				}
+    			}
+    	    }
+    		
+    		
+    		JSONParser paser = new JSONParser(); //JSON Parser객채를 만듭니다. parser를 통해서 파싱을 합니다. 
+    		JSONObject obj = (JSONObject) paser.parse(br); //Parser로 문자열 데이터를 JSON데이터로 변환합니다.
+    		// 한번에 제일 아랫단에 갈 수는 없다 차례대로 찾아가자 
+    		// response 가져오기 
+    		JSONObject parse_response = (JSONObject) obj.get("response"); 
+    		//response key값에 맞는 Value인 JSON객체를 가져옵니다. 
+    		// response 로 부터 body 찾아오기 
+    		JSONObject parse_body = (JSONObject) parse_response.get("body");
+    		// body 로 부터 items 받아오기 
+    		JSONObject parse_items = (JSONObject) parse_body.get("items"); 
+    		// items로 부터 itemlist 를 받아옵니다. itemlist : 뒤에 [ 로 시작하므로 jsonarray입니다. 
+    		JSONArray parse_itemlist = (JSONArray) parse_items.get("itemlist");
+    		// 각각 요소 출력 
+    		for (int i = 0; i < parse_itemlist.size(); i++) { 
+    			// 해당 JSONArray객체에 값을 차례대로 가져와서 읽습니다. 
+    			JSONObject imsi = (JSONObject) parse_itemlist.get(i); 
+    			String name = (String) imsi.get("name"); 
+    			String age = (String) imsi.get("age"); 
+    			System.out.println("배열의 " + i + "번째 요소");
+    			System.out.println("name : " + name); 
+    			System.out.println("age : " + age);
+   			}
+
+    		
+    		System.out.println("============================================================================================================================================");
+			
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	} catch (ParseException e) {
+    		e.printStackTrace();
+    	}finally {
+    	    if(br!=null) {
+    	    	br.close();
+    	    }
+    	}
+	}
+
+}

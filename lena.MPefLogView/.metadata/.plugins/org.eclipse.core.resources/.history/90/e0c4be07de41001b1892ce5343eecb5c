@@ -1,0 +1,52 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+public class ListLenaPLog {
+	public BufferedReader rLPL(String pl) throws Exception{
+		BufferedReader br=null;
+		//br = new BufferedReader(new FileReader("D:/lena-temp/LPL/lena-avg-performance_2020-10.log"));
+		br = new BufferedReader(new FileReader(pl));
+		return br;
+	}
+	
+	public static void showFilesInDIr(String dirPath) {
+	    File dir = new File(dirPath);
+	    File files[] = dir.listFiles();
+
+	    for (int i = 0; i < files.length; i++) {
+	        File file = files[i];
+	        if (file.isDirectory()) {
+	            showFilesInDIr(file.getPath());
+	        } else {
+	            System.out.println("file: " + file);
+	        }
+	    }
+	}
+	
+	public static String rLPD(String lenaPD) throws Exception{
+		String rlpd = null;
+		
+		//File dir = new File("D:/lena-temp/LPL");
+		File dir = new File(lenaPD);
+		
+	    File files[] = dir.listFiles();
+
+	    for (int i = 0; i < files.length; i++) {
+	    	File file = files[i];
+	    	
+	        if (file.isDirectory()) {
+	            showFilesInDIr(file.getPath());
+	        } else if (file.getName().endsWith(".log")){
+	            System.out.println(i +": " + file);
+	        }
+	    }
+	    
+	    UiLPL ulpl = new UiLPL();
+	    rlpd = files[ulpl.SelLog()].toString();
+	    
+	    return rlpd;
+	}
+}

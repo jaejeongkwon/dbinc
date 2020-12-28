@@ -1,0 +1,79 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class ParsingJsonAll {
+	public void actionPerformed(BufferedReader br, String itemjson, String term ) throws Exception{	
+		JSONParser parser = new JSONParser();
+		try {  	
+            JSONObject jOb ;
+            JSONArray  jArr;
+            String line;
+            
+            System.out.println("============================================================================================================================================");
+			System.out.println("       TIME \t\t" + ItemLenaPL.makeTitle(itemjson) );
+			System.out.println("============================================================================================================================================");
+			
+			jOb = (JSONObject) parser.parse(line);
+			jArr = (JSONArray) jOb.get("datasources");
+			JSONObject obj2 = (JSONObject) jArr.get(0);
+			Set key = obj2.keySet();
+			Iterator iter = key.iterator();
+			
+    		while (iter.hasNext()) {
+    			
+    			
+    			String keyName = (String) iter.next();
+				System.out.println("key 값 : " + keyName + "  자료형 : " + obj2.get(keyName).getClass());
+				
+				
+
+    	    }
+    		
+/*			
+			JSONParser paser = new JSONParser(); 
+			JSONObject obj = (JSONObject) paser.parse(line); 
+			JSONObject parse_response = (JSONObject) obj.get("response"); 
+			JSONObject parse_body = (JSONObject) parse_response.get("body"); 
+			JSONObject parse_items = (JSONObject) parse_body.get("items"); 
+			JSONArray parse_itemlist = (JSONArray) parse_items.get("itemlist");
+
+			
+			System.out.println("itemlist의 수 : " + parse_itemlist.size()); // itemlist에 있는 객체의 수를 확인합니다.
+			
+			JSONObject obj2 = (JSONObject) parse_itemlist.get(0); //itemlist의 첫번째 객채를 가져옵니다.
+			System.out.println("하나의 데이터에 오브젝트의 수 : " + obj2.size()); //첫번째 객체의 데이터의 수 입니다.
+			 
+			Set key = obj2.keySet();// 첫번째 객체의 Key Set을 받아옵니다.
+			
+			Iterator iter = key.iterator(); // iterator객체를 생성합니다.
+			
+			//Key값과 데이터 타입을 출력합니다.
+			while(iter.hasNext()){
+				String keyName = iter.next();
+				System.out.println("key 값 : " + keyName + "  자료형 : " + obj2.get(keyName).getClass());
+			}
+
+	*/		
+    		System.out.println("============================================================================================================================================");
+			
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	} catch (ParseException e) {
+    		e.printStackTrace();
+    	}finally {
+    	    if(br!=null) {
+    	    	br.close();
+    	    }
+    	}
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.dbinc.aim.lenaWebcmxJson;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+public class WebLenaReader {
+
+	 public BufferedReader readJsonFromUrl(String urls, String sid) {
+		 BufferedReader br=null;
+		 
+		 try {
+		 URL curl = new URL (urls);
+		 URLConnection conn = curl.openConnection();
+		   
+		 br =  new BufferedReader(new InputStreamReader (conn.getInputStream()));
+		 } catch (Exception e){
+			 System.out.println("# " + sid + " : ConnectException" );   
+			 
+		 } 
+		 
+		 return br;
+	}
+}
+ 

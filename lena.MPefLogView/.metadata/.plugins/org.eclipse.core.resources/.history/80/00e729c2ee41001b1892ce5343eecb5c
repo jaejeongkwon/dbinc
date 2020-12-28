@@ -1,0 +1,11 @@
+package com.dbinc.aim.lenaPLjson;
+
+import org.json.simple.JSONObject;
+
+public class ReadJob {
+	public void actionPerformed(String itemjson, JSONObject jOb){
+		jOWEB = (JSONObject) jOb.get("WEB");
+		
+	}
+
+}

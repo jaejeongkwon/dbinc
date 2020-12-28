@@ -1,0 +1,71 @@
+package com.dbinc.aim.lenaPLjson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class ParsingJSON {
+	public void actionPerformed(BufferedReader br, String itemjson, String term ) throws Exception{	
+		JSONParser parser = new JSONParser();
+		try {  	
+            JSONObject jOb ;
+            JSONArray  jArr;
+            String line;
+            
+            System.out.println("============================================================================================================================================");
+			System.out.println("       TIME \t\t" + ItemLenaPL.makeTitle(itemjson) );
+			System.out.println("============================================================================================================================================");
+			
+    		while ((line = br.readLine()) != null) {
+    			jOb = (JSONObject) parser.parse(line);
+    			jArr = (JSONArray) jOb.get(itemjson);
+    			
+    			if ( "month" == term ) {
+    				String gtime = jOb.get("TIMESTAMP").toString();
+    				
+	    			//System.out.println( gtime + "\t " + ItemLenaPL.makeItem(webObj, itemjson)	);
+    				
+		    		for (Object ob : jArr){
+		    			JSONObject wi = (JSONObject)ob;
+		    			System.out.println( gtime + "\t " + ItemLenaPL.makeItem(wi, itemjson));
+		    			
+		    			if (itemjson == "WAS"){
+		    				
+		    			}
+		    		}
+	    			
+	    			
+    			} else {
+    				String gtime = jOb.get("TIMESTAMP").toString();
+
+    				//if (gtime.contains("2020-11-23") ){
+    				if (gtime.contains(UiLPL.get2day()) ){
+    					//System.out.println( gtime + "\t " + ItemLenaPL.makeItem(webObj, itemjson)	);
+    					
+    		    		for (Object ob : jArr){
+    		    			JSONObject wi = (JSONObject)ob;
+    		    			System.out.println( gtime + "\t " + ItemLenaPL.makeItem(wi, itemjson));
+    		    			
+    		    		}
+    				}
+    			}
+    	    }
+    		
+    		System.out.println("============================================================================================================================================");
+			
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	} catch (ParseException e) {
+    		e.printStackTrace();
+    	}finally {
+    	    if(br!=null) {
+    	    	br.close();
+    	    }
+    	}
+	}
+
+}

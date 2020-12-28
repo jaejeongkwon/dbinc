@@ -1,0 +1,13 @@
+package com.dbinc.aim.lenaPLjson;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+public class ReadJob {
+	JSONArray  jArr;
+	public void actionPerformed(String itemjson, JSONObject jOb){
+		jArr = (JSONArray) jOb.get(itemjson);
+		
+	}
+
+}
